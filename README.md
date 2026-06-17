@@ -19,7 +19,7 @@ Codex 앱에서:
 3. 아래 값을 입력합니다.
 
 ```text
-Source: github.com/munkm1109-lang/plugin-recommender
+Source: munkm1109-lang/plugin-recommender
 Git ref: main
 Sparse path: 비워두기
 ```
