@@ -4,4 +4,4 @@ interface:
   default_prompt: "Use $plugin-recommender to recommend Codex plugins for this task: "
 
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true
