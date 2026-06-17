@@ -21,12 +21,19 @@ Codex 앱에서:
 ```text
 Source: github.com/munkm1109-lang/plugin-recommender
 Git ref: main
-Sparse path: .
+Sparse path: 비워두기
 ```
 
 4. marketplace를 추가합니다.
 5. Plugin Directory에서 **Plugin Recommender**를 찾아 설치합니다.
 6. 새 Codex thread를 열어 사용합니다.
+
+만약 Sparse path 입력이 필요하다고 나오면 아래처럼 두 줄을 입력하세요.
+
+```text
+.agents/plugins
+plugins
+```
 
 ## CLI 설치
 
