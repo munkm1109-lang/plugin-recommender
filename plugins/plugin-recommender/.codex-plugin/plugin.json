@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Recommend Codex plugins and skills from a local Korean catalog.",
   "author": {
-    "name": "Datamatica"
+    "name": "munkm1109"
   },
   "license": "MIT",
   "keywords": [
@@ -18,7 +18,7 @@
     "displayName": "Plugin Recommender",
     "shortDescription": "Recommend Codex plugins for a task.",
     "longDescription": "Plugin Recommender adds an explicit-use Codex skill that recommends relevant plugins and skills from a bundled Korean plugin catalog. It is useful when a user wants to know which plugin or skill best fits a task before starting the work.",
-    "developerName": "Datamatica",
+    "developerName": "munkm1109",
     "category": "Productivity",
     "capabilities": [
       "Read"
