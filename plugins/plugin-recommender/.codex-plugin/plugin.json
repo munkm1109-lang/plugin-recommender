@@ -20,6 +20,9 @@
     "longDescription": "Plugin Recommender adds an explicit-use Codex skill that recommends relevant plugins and skills from a bundled Korean plugin catalog. It is useful when a user wants to know which plugin or skill best fits a task before starting the work.",
     "developerName": "munkm1109",
     "category": "Productivity",
+    "websiteURL": "https://github.com/munkm1109-lang/plugin-recommender",
+    "privacyPolicyURL": "https://github.com/munkm1109-lang/plugin-recommender/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/munkm1109-lang/plugin-recommender/blob/main/TERMS.md",
     "capabilities": [
       "Read"
     ],

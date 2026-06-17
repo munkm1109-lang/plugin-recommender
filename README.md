@@ -95,7 +95,7 @@ plugins/
           openai.yaml
         scripts/
           plugin_recommender.py
-          Codex_플러그인_카탈로그_KR.csv
+          Codex_플러그인_카탈로그_KR.csv.gz
 ```
 
 ## 피드백
