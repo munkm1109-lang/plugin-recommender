@@ -1,0 +1,20 @@
+{
+  "name": "plugin-recommender-marketplace",
+  "interface": {
+    "displayName": "Plugin Recommender"
+  },
+  "plugins": [
+    {
+      "name": "plugin-recommender",
+      "source": {
+        "source": "local",
+        "path": "./plugins/plugin-recommender"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

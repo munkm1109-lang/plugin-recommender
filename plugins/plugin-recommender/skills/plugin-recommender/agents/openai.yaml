@@ -1,0 +1,7 @@
+interface:
+  display_name: "Plugin Recommender"
+  short_description: "Suggest plugins for a task"
+  default_prompt: "Use $plugin-recommender to recommend Codex plugins for this task: "
+
+policy:
+  allow_implicit_invocation: false

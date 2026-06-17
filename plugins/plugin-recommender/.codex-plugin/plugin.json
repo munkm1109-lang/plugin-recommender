@@ -1,0 +1,32 @@
+{
+  "name": "plugin-recommender",
+  "version": "0.1.0",
+  "description": "Recommend Codex plugins and skills from a local Korean catalog.",
+  "author": {
+    "name": "Datamatica"
+  },
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "plugins",
+    "skills",
+    "recommendation",
+    "catalog"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Plugin Recommender",
+    "shortDescription": "Recommend Codex plugins for a task.",
+    "longDescription": "Plugin Recommender adds an explicit-use Codex skill that recommends relevant plugins and skills from a bundled Korean plugin catalog. It is useful when a user wants to know which plugin or skill best fits a task before starting the work.",
+    "developerName": "Datamatica",
+    "category": "Productivity",
+    "capabilities": [
+      "Read"
+    ],
+    "defaultPrompt": [
+      "$plugin-recommender PDF를 읽고 엑셀 표로 정리해줘",
+      "$plugin-recommender 제안서를 PPT 발표자료로 만들어줘",
+      "$plugin-recommender GitHub PR 리뷰에 맞는 플러그인을 추천해줘"
+    ]
+  }
+}
