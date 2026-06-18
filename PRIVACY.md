@@ -10,6 +10,14 @@ This plugin does not collect, store, transmit, sell, or share user prompts, file
 
 The recommendation script reads the task text provided by the user and a bundled local catalog file to generate plugin recommendations. Processing happens locally in the user's Codex environment.
 
+When local plugin scanning is requested, Plugin Recommender reads local Codex plugin manifest and skill description files to build a user-local overlay catalog. This overlay is stored only on the user's machine at:
+
+```text
+%USERPROFILE%\.codex\plugin-recommender\local_catalog_overlay.json
+```
+
+The local overlay is not sent to the publisher.
+
 ## Network Access
 
 This plugin does not require an external account connection and does not send recommendation requests to a remote service.

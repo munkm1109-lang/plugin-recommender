@@ -10,11 +10,12 @@ Use this skill to recommend Codex plugins or skills for a user task from the loc
 ## Workflow
 
 1. Identify the user's task text.
-2. Run the bundled recommender script with the task text.
-3. Return the best recommendation in Korean with a short reason.
-4. Include caveats from the output: account connection, cost/plan, and notes.
-5. If this skill was invoked implicitly, do not execute another plugin, connector, app, or external tool immediately.
-6. First ask for confirmation with this shape:
+2. If the user says a new plugin was installed or asks to scan plugins, refresh the local plugin overlay first. Examples include `새로운 플러그인 설치됐어`, `새 플러그인 설치`, `플러그인 스캔`, `플러그인 스캔 ㄱㄱ`, `플러그인 목록 새로고침`, or `로컬 플러그인 새로고침`.
+3. Run the bundled recommender script with the task text.
+4. Return the best recommendation in Korean with a short reason.
+5. Include caveats from the output: account connection, cost/plan, and notes.
+6. If this skill was invoked implicitly, do not execute another plugin, connector, app, or external tool immediately.
+7. First ask for confirmation with this shape:
 
 ```text
 이 작업에는 <plugin> 플러그인이 <reason> 때문에 적합합니다.
@@ -24,10 +25,10 @@ Use this skill to recommend Codex plugins or skills for a user task from the loc
 <plugin> 플러그인을 사용하시겠습니까?
 ```
 
-7. Proceed only if the user clearly answers yes, yes please, ok, 진행, 승인, 좋아, 응, or another unambiguous approval.
-8. If the recommended plugin needs an external account or connector and the capability is not available, tell the user that the connection is required. Ask them to connect it, then continue after they confirm the connection is complete.
-9. After approval, use the recommended plugin's available skills or tools when present. If the tool is not already available, use tool discovery when available. If no callable capability exists, explain the blocker and offer the closest safe fallback.
-10. Do not treat the recommendation as mandatory; override it when the current request, available tools, or safety constraints require a better route.
+8. Proceed only if the user clearly answers yes, yes please, ok, 진행, 승인, 좋아, 응, or another unambiguous approval.
+9. If the recommended plugin needs an external account or connector and the capability is not available, tell the user that the connection is required. Ask them to connect it, then continue after they confirm the connection is complete.
+10. After approval, use the recommended plugin's available skills or tools when present. If the tool is not already available, use tool discovery when available. If no callable capability exists, explain the blocker and offer the closest safe fallback.
+11. Do not treat the recommendation as mandatory; override it when the current request, available tools, or safety constraints require a better route.
 
 ## Explicit Invocation
 
@@ -47,7 +48,35 @@ For machine-readable output:
 python "<skill-dir>\scripts\plugin_recommender.py" "<user task>" --top-k 5 --json
 ```
 
+To refresh locally installed plugins:
+
+```powershell
+python "<skill-dir>\scripts\plugin_recommender.py" --refresh-local
+```
+
+Natural-language refresh requests work too:
+
+```powershell
+python "<skill-dir>\scripts\plugin_recommender.py" "플러그인 스캔 ㄱㄱ"
+```
+
+To inspect locally added plugin rows:
+
+```powershell
+python "<skill-dir>\scripts\plugin_recommender.py" --list-local-plugins
+```
+
 Resolve `<skill-dir>` to the directory containing this `SKILL.md`. On a default Windows install, that is usually `%USERPROFILE%\.codex\skills\plugin-recommender`.
+
+## Local Plugin Overlay
+
+The bundled catalog is read-only. Local plugin scanning writes only to:
+
+```text
+%USERPROFILE%\.codex\plugin-recommender\local_catalog_overlay.json
+```
+
+The scanner reads installed plugin manifests and skill descriptions from local Codex plugin folders, then adds only plugins that are not already in the bundled catalog or overlay.
 
 ## Output Guidance
 

@@ -85,6 +85,35 @@ GitHub 플러그인을 사용하시겠습니까?
 $plugin-recommender PDF를 읽고 엑셀 표로 정리해줘
 ```
 
+## 로컬 플러그인 스캔
+
+설치된 플러그인이 카탈로그에 아직 없다면, 아래처럼 말해서 로컬 플러그인 목록을 새로 스캔할 수 있습니다.
+
+```text
+@plugin-recommender 플러그인 스캔 ㄱㄱ
+```
+
+또는:
+
+```text
+@plugin-recommender 새로운 플러그인 설치됐어
+```
+
+내부적으로는 설치된 플러그인의 manifest와 skill 설명을 읽어서, 기존 카탈로그에 없는 플러그인만 로컬 overlay catalog에 추가합니다. 기본 제공 카탈로그 파일은 수정하지 않습니다.
+
+로컬 overlay 위치:
+
+```text
+%USERPROFILE%\.codex\plugin-recommender\local_catalog_overlay.json
+```
+
+CLI로 직접 실행할 수도 있습니다.
+
+```powershell
+python "<plugin-recommender skill path>\scripts\plugin_recommender.py" --refresh-local
+python "<plugin-recommender skill path>\scripts\plugin_recommender.py" --list-local-plugins
+```
+
 ## 추천 결과에 포함되는 정보
 
 - 추천 플러그인 또는 스킬
@@ -98,6 +127,7 @@ $plugin-recommender PDF를 읽고 엑셀 표로 정리해줘
 - 이 플러그인은 OpenAI 공식 Plugin Directory에 등록된 공식 플러그인이 아닙니다.
 - 현재는 GitHub marketplace를 통해 설치하는 베타 버전입니다.
 - 포함된 플러그인 카탈로그는 특정 시점의 스냅샷이라 최신 Codex 플러그인 전체를 보장하지 않습니다.
+- 로컬 스캔은 사용자의 PC에 설치된 플러그인 metadata를 읽어 개인 overlay catalog에 저장합니다.
 - 사용자의 프롬프트나 사용 기록을 개발자에게 전송하지 않습니다.
 - 외부 계정 연결 없이 로컬에서 추천 스크립트를 실행합니다.
 
@@ -115,7 +145,15 @@ plugins/
         agents/
           openai.yaml
         scripts/
+          catalog_data.py
+          local_catalog.py
+          local_catalog_common.py
+          local_catalog_extract.py
+          local_catalog_scan.py
           plugin_recommender.py
+          plugin_recommender_cli.py
+          plugin_recommender_output.py
+          scoring.py
           Codex_플러그인_카탈로그_KR.csv.gz
 ```
 

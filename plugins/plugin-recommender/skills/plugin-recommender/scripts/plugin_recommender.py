@@ -1,9 +1,8 @@
-import argparse
 import csv
 import gzip
-import json
 from pathlib import Path
 
+from local_catalog import load_overlay, merge_rows, refresh_overlay
 from scoring import build_reason, normalize, rule_scores, text_score
 
 
@@ -17,6 +16,13 @@ def load_catalog(catalog_path=CATALOG_PATH):
     if not rows:
         raise ValueError(f"카탈로그가 비어 있습니다: {catalog_path}")
     return rows
+
+
+def load_effective_catalog(catalog_path=CATALOG_PATH, refresh_local=False):
+    rows = load_catalog(catalog_path)
+    if refresh_local:
+        refresh_overlay(rows)
+    return merge_rows(rows, load_overlay())
 
 
 def build_recommendation(row, score, reasons):
@@ -55,41 +61,15 @@ def top_unique_recommendations(ranked, top_k):
     return deduped
 
 
-def recommend_plugins(query, top_k=5, catalog_path=CATALOG_PATH):
-    rows = load_catalog(catalog_path)
+def recommend_plugins(query, top_k=5, catalog_path=CATALOG_PATH, refresh_local=False):
+    rows = load_effective_catalog(catalog_path, refresh_local=refresh_local)
     query_tokens = normalize(query).split()
     rules, reasons = rule_scores(query)
     ranked = score_catalog_rows(rows, query_tokens, rules, reasons)
     return top_unique_recommendations(ranked, top_k)
 
 
-def format_recommendations(results):
-    if not results:
-        return "추천할 플러그인을 찾지 못했습니다. 작업 설명을 더 구체적으로 입력하세요."
-
-    lines = []
-    for index, item in enumerate(results, start=1):
-        lines.append(f"{index}. {item['plugin']} ({item['category']})")
-        lines.append(f"   - 추천 이유: {item['reason']}")
-        lines.append(f"   - 계정 연결: {item['account_connection']}")
-        lines.append(f"   - 비용/플랜: {item['cost_plan']}")
-        lines.append(f"   - 주의사항: {item['notes']}")
-    return "\n".join(lines)
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Codex 플러그인 카탈로그 기반 경량 추천기")
-    parser.add_argument("query", help="사용자 작업 명령")
-    parser.add_argument("--top-k", type=int, default=5, help="추천 개수")
-    parser.add_argument("--json", action="store_true", help="JSON으로 출력")
-    args = parser.parse_args()
-
-    results = recommend_plugins(args.query, top_k=args.top_k)
-    if args.json:
-        print(json.dumps(results, ensure_ascii=False, indent=2))
-    else:
-        print(format_recommendations(results))
-
-
 if __name__ == "__main__":
+    from plugin_recommender_cli import main
+
     main()
