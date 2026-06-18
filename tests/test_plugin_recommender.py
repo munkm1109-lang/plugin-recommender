@@ -1,11 +1,10 @@
 import sys
-import json
 import tempfile
 import unittest
 from pathlib import Path
 
 
-SCRIPT_DIR = Path(__file__).resolve().parent / "skills" / "plugin-recommender" / "scripts"
+SCRIPT_DIR = Path(__file__).resolve().parents[1] / "plugins" / "plugin-recommender" / "skills" / "plugin-recommender" / "scripts"
 sys.path.insert(0, str(SCRIPT_DIR))
 
 from local_catalog import is_refresh_request, refresh_overlay  # noqa: E402
@@ -51,17 +50,14 @@ class PluginRecommenderTests(unittest.TestCase):
             manifest_dir.mkdir(parents=True)
             skill_dir.mkdir(parents=True)
             (manifest_dir / "plugin.json").write_text(
-                json.dumps(
-                    {
-                        "name": "demo-plugin",
-                        "description": "Demo plugin.",
-                        "interface": {
-                            "displayName": "Demo Plugin",
-                            "shortDescription": "Helps with demo tasks.",
-                            "category": "Productivity",
-                        },
-                    }
-                ),
+                '{"name":"demo-plugin","license":"Proprietary",'
+                '"interface":{"displayName":"Demo Plugin",'
+                '"shortDescription":"Helps with demo tasks.",'
+                '"category":"Productivity","developerName":"Demo Inc."}}',
+                encoding="utf-8",
+            )
+            (plugin_root / ".app.json").write_text(
+                '{"apps":{"demo":{"required":true}}}',
                 encoding="utf-8",
             )
             (skill_dir / "SKILL.md").write_text(
@@ -76,6 +72,9 @@ class PluginRecommenderTests(unittest.TestCase):
             self.assertEqual(1, len(first["added"]))
             self.assertEqual("Demo Plugin", first["added"][0]["플러그인명"])
             self.assertEqual("demo-skill", first["added"][0]["대표 스킬"])
+            self.assertIn("Demo Inc.", first["added"][0]["서비스 설명"])
+            self.assertIn("외부 서비스", first["added"][0]["계정 연결"])
+            self.assertIn("플랜", first["added"][0]["비용/플랜"])
             self.assertEqual(0, len(second["added"]))
             self.assertEqual(1, len(second["rows"]))
 
@@ -86,12 +85,7 @@ class PluginRecommenderTests(unittest.TestCase):
             manifest_dir = plugin_root / ".codex-plugin"
             manifest_dir.mkdir(parents=True)
             (manifest_dir / "plugin.json").write_text(
-                json.dumps(
-                    {
-                        "name": "fixture-plugin",
-                        "interface": {"displayName": "Fixture Plugin"},
-                    }
-                ),
+                '{"name":"fixture-plugin","interface":{"displayName":"Fixture Plugin"}}',
                 encoding="utf-8",
             )
 
@@ -115,6 +109,8 @@ class PluginRecommenderTests(unittest.TestCase):
 
         self.assertIn("새로 추가된 플러그인", output)
         self.assertIn("Demo Plugin", output)
+        self.assertIn("연결 필요성", output)
+        self.assertIn("플러그인 기능", output)
         self.assertIn("demo-skill", output)
 
 
