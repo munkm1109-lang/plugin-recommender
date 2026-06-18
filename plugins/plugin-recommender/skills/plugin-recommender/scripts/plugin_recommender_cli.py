@@ -3,7 +3,11 @@ import json
 
 from local_catalog import is_refresh_request, load_overlay, refresh_overlay
 from plugin_recommender import load_catalog, recommend_plugins
-from plugin_recommender_output import format_local_plugins, format_recommendations
+from plugin_recommender_output import (
+    format_added_plugins,
+    format_local_plugins,
+    format_recommendations,
+)
 
 
 def parser():
@@ -26,6 +30,7 @@ def handle_refresh(args, base_rows):
         print_json(result)
     else:
         print(f"로컬 플러그인 스캔 완료: {len(result['added'])}개 추가")
+        print(format_added_plugins(result["added"]))
         print(f"Overlay catalog: {result['path']}")
 
 

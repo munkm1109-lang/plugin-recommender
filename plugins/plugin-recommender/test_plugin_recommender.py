@@ -10,6 +10,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from local_catalog import is_refresh_request, refresh_overlay  # noqa: E402
 from plugin_recommender import recommend_plugins  # noqa: E402
+from plugin_recommender_output import format_added_plugins  # noqa: E402
 
 
 class PluginRecommenderTests(unittest.TestCase):
@@ -96,6 +97,23 @@ class PluginRecommenderTests(unittest.TestCase):
 
             self.assertEqual([], result["added"])
             self.assertEqual([], result["rows"])
+
+    def test_format_added_plugins_names_new_plugins(self):
+        output = format_added_plugins(
+            [
+                {
+                    "플러그인명": "Demo Plugin",
+                    "분류": "Productivity",
+                    "한 줄 설명": "Helps with demo tasks.",
+                    "대표 스킬": "demo-skill",
+                    "source_path": "C:/demo",
+                }
+            ]
+        )
+
+        self.assertIn("새로 추가된 플러그인", output)
+        self.assertIn("Demo Plugin", output)
+        self.assertIn("demo-skill", output)
 
 
 if __name__ == "__main__":

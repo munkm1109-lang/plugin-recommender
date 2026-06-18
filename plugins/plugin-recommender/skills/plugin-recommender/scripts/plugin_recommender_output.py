@@ -23,3 +23,16 @@ def format_local_plugins(rows):
         lines.append(f"   - 대표 스킬: {row.get('대표 스킬', '')}")
         lines.append(f"   - 위치: {row.get('source_path', '')}")
     return "\n".join(lines)
+
+
+def format_added_plugins(rows):
+    if not rows:
+        return "새로 추가된 플러그인은 없습니다. 이미 카탈로그에 있거나 이전 스캔에서 추가된 상태입니다."
+
+    lines = ["새로 추가된 플러그인:"]
+    for index, row in enumerate(rows, start=1):
+        lines.append(f"{index}. {row.get('플러그인명', '')} ({row.get('분류', '')})")
+        lines.append(f"   - 설명: {row.get('한 줄 설명', '')}")
+        lines.append(f"   - 대표 스킬: {row.get('대표 스킬', '') or '없음'}")
+        lines.append(f"   - 위치: {row.get('source_path', '')}")
+    return "\n".join(lines)
