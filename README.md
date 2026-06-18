@@ -99,6 +99,13 @@ $plugin-recommender PDF를 읽고 엑셀 표로 정리해줘
 @plugin-recommender 새로운 플러그인 설치됐어
 ```
 
+아래 표현도 같은 스캔 요청으로 처리됩니다.
+
+```text
+@plugin-recommender 새로 플러그인 추가함
+@plugin-recommender 플러그인 추가
+```
+
 내부적으로는 설치된 플러그인의 manifest와 skill 설명을 읽어서, 기존 카탈로그에 없는 플러그인만 로컬 overlay catalog에 추가합니다. 기본 제공 카탈로그 파일은 수정하지 않습니다.
 
 로컬 overlay 위치:

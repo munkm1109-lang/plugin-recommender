@@ -10,7 +10,7 @@ Use this skill to recommend Codex plugins or skills for a user task from the loc
 ## Workflow
 
 1. Identify the user's task text.
-2. If the user says a new plugin was installed or asks to scan plugins, refresh the local plugin overlay first. Examples include `새로운 플러그인 설치됐어`, `새 플러그인 설치`, `플러그인 스캔`, `플러그인 스캔 ㄱㄱ`, `플러그인 목록 새로고침`, or `로컬 플러그인 새로고침`.
+2. If the user says a new plugin was installed or asks to scan plugins, refresh the local plugin overlay first. Examples include `새로운 플러그인 설치됐어`, `새 플러그인 설치`, `새로 플러그인 추가함`, `플러그인 추가`, `플러그인 스캔`, `플러그인 스캔 ㄱㄱ`, `플러그인 목록 새로고침`, or `로컬 플러그인 새로고침`.
 3. Run the bundled recommender script with the task text.
 4. Return the best recommendation in Korean with a short reason.
 5. Include caveats from the output: account connection, cost/plan, and notes.

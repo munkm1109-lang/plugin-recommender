@@ -37,6 +37,8 @@ class PluginRecommenderTests(unittest.TestCase):
 
     def test_refresh_request_detection(self):
         self.assertTrue(is_refresh_request("새로운 플러그인 설치됐어"))
+        self.assertTrue(is_refresh_request("새로 플러그인 추가함"))
+        self.assertTrue(is_refresh_request("플러그인 추가"))
         self.assertTrue(is_refresh_request("플러그인 스캔 ㄱㄱ"))
         self.assertFalse(is_refresh_request("PDF를 요약해줘"))
 
